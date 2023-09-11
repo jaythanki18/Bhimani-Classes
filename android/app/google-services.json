@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "661319764285",
+    "project_id": "bhimani-classes",
+    "storage_bucket": "bhimani-classes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661319764285:android:154655972e37ac1d095d54",
+        "android_client_info": {
+          "package_name": "com.example.bhimani_classes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "661319764285-spq1mljis7jo1jdfjji5gp5htd9bj1s0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpKOn8Rlv-l0OjQqVgaeJF-6aWvyWgfU4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "661319764285-spq1mljis7jo1jdfjji5gp5htd9bj1s0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

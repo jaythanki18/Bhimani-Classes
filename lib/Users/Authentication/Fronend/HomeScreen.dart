@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../General/WelcomeScreen.dart';
 import '../Backend/Provider/AuthProvider.dart';
-
+import '../../../General/WelcomeScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -112,8 +111,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-
-
                     ],
                   ),
                 ]
@@ -310,12 +307,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 thickness: 2,
                 color: Color.fromRGBO(45, 87, 152, 1.0)
               ),
-              // ElevatedButton(onPressed: (){
-              //   Navigator.push(context, MaterialPageRoute(builder: (context)=>Dashboard()));
-              // }, child: Text("Dashboard")),
-              // SizedBox(
-              //   height: height * 0.1,
-              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

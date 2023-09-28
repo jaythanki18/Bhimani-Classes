@@ -1,11 +1,9 @@
+import 'package:bhimani_classes/Users/Authentication/Backend/Utils/utils.dart';
+import 'package:bhimani_classes/Users/Frontend/Dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:provider/provider.dart';
-
 import '../Backend/Provider/AuthProvider.dart';
-
-import '../Backend/Utils/utils.dart';
-import 'HomeScreen.dart';
 import 'UserInformationScreen.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -160,7 +158,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                 (value) => Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const HomeScreen(),
+                                      builder: (context) => const UserDashboard(),
                                     ),
                                     (route) => false),
                               ),

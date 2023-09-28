@@ -176,14 +176,13 @@
 //   }
 // }
 import 'package:bhimani_classes/Admin/Authentication/Fronend/HomeScreen.dart';
+import 'package:bhimani_classes/Users/Frontend/Modules/Syllabus/UserSubject.dart';
+import 'package:bhimani_classes/page/create_sheets_page.dart';
+import 'package:bhimani_classes/page/modify_shets_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../User/Authentication/Backend/Provider/AuthProvider.dart';
-import '../../User/Authentication/Backend/UserModel/UserModel.dart';
 import 'Modules/Syllabus/standard.dart';
 
 class Dashboard extends StatefulWidget {
@@ -200,11 +199,10 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-
     User? user = _auth.currentUser;
     final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
         .collection('admin')
-        .doc(user!.uid)
+        .doc('UCIxdbMJPQh9jlwjBWiK779Vxt32')
         .collection('Dashboard')
         .snapshots();
 
@@ -243,216 +241,242 @@ class _DashboardState extends State<Dashboard> {
       ),
       body: Stack(
         children: [
-          StreamBuilder<QuerySnapshot>(
-            stream: _usersStream,
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasError) {
-                return Text('Something went wrong');
-              }
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Text("Loading");
-              }
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 10.0),
+            child: StreamBuilder<QuerySnapshot>(
+              stream: _usersStream,
+              builder:
+                  (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Something went wrong');
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Text("Loading");
+                }
 
-              return GridView(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
-                children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                  Map<String, dynamic> data =
-                      document.data()! as Map<String, dynamic>;
-                  return Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      onPressed: () {
-                        print(
-                          data['Section'],
-                        );
-                        print(
-                          document.id,
-                        );
-                        print(document.id);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => (Standard(
-                              did: document.id,
-                            )),
+                return GridView(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+                  children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                    Map<String, dynamic> data =
+                        document.data()! as Map<String, dynamic>;
+                    return Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                        onPressed: () {
+                          print(
+                            data['Section'],
+                          );
+                          print(
+                            document.id,
+                          );
+                          print(document.id);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => (UserSubject(
+                              )
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+
+                              // border: Border.all(),
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Image.asset(
+                                data['icon'],
+                                height: 100,
+                                width: 100,
+                              ),
+                              Text(
+                                data['name'],
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromRGBO(3, 54, 134, 1.0)),
+                              ),
+                            ],
                           ),
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-
-                            // border: Border.all(),
-                            borderRadius: BorderRadius.circular(12)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Image.asset(
-                              data['icon'],
-                              height: 100,
-                              width: 100,
-                            ),
-                            Text(
-                              data['name'],
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromRGBO(3, 54, 134, 1.0)),
-                            ),
-                          ],
                         ),
                       ),
-                    ),
-                  );
-                }).toList(),
-              );
-            },
+                    );
+                  }).toList(),
+                );
+              },
+            ),
           ),
+
           Positioned(
             bottom: 30,
             // left: 0,
             right: 25,
-            child: Center(
-              child: FloatingActionButton(
-                backgroundColor: Color.fromRGBO(3, 54, 134, 1.0),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15.0))),
-                onPressed: () async{
-                  print('on click');
-                 await showInformationDialogBox(context);
-                },
-                child: Icon(
-                  Icons.add,
+            child: Row(
+              children: [
+                Center(
+                  child: FloatingActionButton(
+                    backgroundColor: Color.fromRGBO(3, 54, 134, 1.0),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                    onPressed: () async {
+                      print('on click');
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ModifyPage()));
+                      // await showInformationDialogBox(context);
+                    },
+                    child: Icon(
+                      Icons.menu,
+                    ),
+                  ),
                 ),
-              ),
+                Center(
+                  child: FloatingActionButton(
+                    backgroundColor: Color.fromRGBO(3, 54, 134, 1.0),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                    onPressed: () async {
+                      print('on click');
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateSheetsPage()));
+                      // await showInformationDialogBox(context);
+                    },
+                    child: Icon(
+                      Icons.add,
+                    ),
+                  ),
+                ),
+              ],
             ),
           )
         ],
       ),
     );
-
   }
-  Future<void> showInformationDialogBox(BuildContext context) async{
-    TextEditingController _sectionController = new TextEditingController();
-    return await showDialog(barrierDismissible: false,context: context, builder: (context){
-      bool isChecked=false;
-      return StatefulBuilder(builder: (context,setState){
-        return AlertDialog(
-          title: Text('Add Module'),
-          content: TextField(
-            controller: _sectionController,
-            decoration: InputDecoration(
-              labelText: 'Enter Module Name',
-              labelStyle: TextStyle(
-                  color: Colors.black), // Change the label text color
-            ),
-            style: TextStyle(
-                color: Colors.blue), // Change the text color
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                // Create the folder
-                if (_sectionController.text != '' &&
-                    _sectionController.text == 'Result') {
-                  User? user = _auth.currentUser;
-                  FirebaseFirestore.instance
-                      .collection('admin')
-                      .doc(user!.uid)
-                      .collection('Dashboard')
-                      .add({
-                    "type": "section",
-                    "name": _sectionController.text,
-                    "icon": "assets/result.png"
-                  });
-                }
-                if (_sectionController.text != '' &&
-                    _sectionController.text == "Messages") {
-                  User? user = _auth.currentUser;
-                  FirebaseFirestore.instance
-                      .collection('admin')
-                      .doc(user!.uid)
-                      .collection('Dashboard')
-                      .add({
-                    "type": "section",
-                    "name": _sectionController.text,
-                    "icon": "assets/message.png"
-                  });
-                }
-                if (_sectionController.text != '' &&
-                    _sectionController.text == "Time Table") {
-                  User? user = _auth.currentUser;
-                  FirebaseFirestore.instance
-                      .collection('admin')
-                      .doc(user!.uid)
-                      .collection('Dashboard')
-                      .add({
-                    "type": "section",
-                    "name": _sectionController.text,
-                    "icon": "assets/timetable.png"
-                  });
-                }
-                if (_sectionController.text != '' &&
-                    _sectionController.text == "Attendance") {
-                  User? user = _auth.currentUser;
-                  FirebaseFirestore.instance
-                      .collection('admin')
-                      .doc(user!.uid)
-                      .collection('Dashboard')
-                      .add({
-                    "type": "section",
-                    "name": _sectionController.text,
-                    "icon": "assets/attendance.png"
-                  });
-                }
 
-                if (_sectionController.text != '' &&
-                    _sectionController.text == "Syllabus") {
-                  User? user = _auth.currentUser;
-                  FirebaseFirestore.instance
-                      .collection('admin')
-                      .doc(user!.uid)
-                      .collection('Dashboard')
-                      .add({
-                    "type": "section",
-                    "name": _sectionController.text,
-                    "icon": "assets/syllabus.png"
-                  });
-                }
-
-                if (_sectionController.text != '' &&
-                    _sectionController.text == "Fees") {
-                  User? user = _auth.currentUser;
-                  FirebaseFirestore.instance
-                      .collection('admin')
-                      .doc(user!.uid)
-                      .collection('Dashboard')
-                      .add({
-                    "type": "section",
-                    "name": _sectionController.text,
-                    "icon": "assets/fees.png"
-                  });
-                }
-                _sectionController.clear();
-                Navigator.of(context).pop();
-              },
-              child: Text('Add'),
-            ),
-          ],
-        );
-      });
-    });
-  }
+  // Future<void> showInformationDialogBox(BuildContext context) async {
+  //   TextEditingController _sectionController = new TextEditingController();
+  //   return await showDialog(
+  //       barrierDismissible: false,
+  //       context: context,
+  //       builder: (context) {
+  //         bool isChecked = false;
+  //         return StatefulBuilder(builder: (context, setState) {
+  //           return AlertDialog(
+  //             title: Text('Add Module'),
+  //             content: TextField(
+  //               controller: _sectionController,
+  //               decoration: InputDecoration(
+  //                 labelText: 'Enter Module Name',
+  //                 labelStyle: TextStyle(
+  //                     color: Colors.black), // Change the label text color
+  //               ),
+  //               style: TextStyle(color: Colors.blue), // Change the text color
+  //             ),
+  //             actions: [
+  //               TextButton(
+  //                 onPressed: () {
+  //                   Navigator.of(context).pop();
+  //                 },
+  //                 child: Text('Cancel'),
+  //               ),
+  //               TextButton(
+  //                 onPressed: () {
+  //                   // Create the folder
+  //                   if (_sectionController.text != '' &&
+  //                       _sectionController.text == 'Result') {
+  //                     User? user = _auth.currentUser;
+  //                     FirebaseFirestore.instance
+  //                         .collection('admin')
+  //                         .doc(user!.uid)
+  //                         .collection('Dashboard')
+  //                         .add({
+  //                       "type": "section",
+  //                       "name": _sectionController.text,
+  //                       "icon": "assets/result.png"
+  //                     });
+  //                   }
+  //                   if (_sectionController.text != '' &&
+  //                       _sectionController.text == "Messages") {
+  //                     User? user = _auth.currentUser;
+  //                     FirebaseFirestore.instance
+  //                         .collection('admin')
+  //                         .doc(user!.uid)
+  //                         .collection('Dashboard')
+  //                         .add({
+  //                       "type": "section",
+  //                       "name": _sectionController.text,
+  //                       "icon": "assets/message.png"
+  //                     });
+  //                   }
+  //                   if (_sectionController.text != '' &&
+  //                       _sectionController.text == "Time Table") {
+  //                     User? user = _auth.currentUser;
+  //                     FirebaseFirestore.instance
+  //                         .collection('admin')
+  //                         .doc(user!.uid)
+  //                         .collection('Dashboard')
+  //                         .add({
+  //                       "type": "section",
+  //                       "name": _sectionController.text,
+  //                       "icon": "assets/timetable.png"
+  //                     });
+  //                   }
+  //                   if (_sectionController.text != '' &&
+  //                       _sectionController.text == "Attendance") {
+  //                     User? user = _auth.currentUser;
+  //                     FirebaseFirestore.instance
+  //                         .collection('admin')
+  //                         .doc(user!.uid)
+  //                         .collection('Dashboard')
+  //                         .add({
+  //                       "type": "section",
+  //                       "name": _sectionController.text,
+  //                       "icon": "assets/attendance.png"
+  //                     });
+  //                   }
+  //
+  //                   if (_sectionController.text != '' &&
+  //                       _sectionController.text == "Syllabus") {
+  //                     User? user = _auth.currentUser;
+  //                     FirebaseFirestore.instance
+  //                         .collection('admin')
+  //                         .doc(user!.uid)
+  //                         .collection('Dashboard')
+  //                         .add({
+  //                       "type": "section",
+  //                       "name": _sectionController.text,
+  //                       "icon": "assets/syllabus.png"
+  //                     });
+  //                   }
+  //
+  //                   if (_sectionController.text != '' &&
+  //                       _sectionController.text == "Fees") {
+  //                     User? user = _auth.currentUser;
+  //                     FirebaseFirestore.instance
+  //                         .collection('admin')
+  //                         .doc(user!.uid)
+  //                         .collection('Dashboard')
+  //                         .add({
+  //                       "type": "section",
+  //                       "name": _sectionController.text,
+  //                       "icon": "assets/fees.png"
+  //                     });
+  //                   }
+  //                   _sectionController.clear();
+  //                   Navigator.of(context).pop();
+  //                 },
+  //                 child: Text('Add'),
+  //               ),
+  //             ],
+  //           );
+  //         });
+  //       });
+  // }
 }

@@ -1,26 +1,26 @@
+import 'package:bhimani_classes/Users/Authentication/Backend/Utils/utils.dart';
+import 'package:bhimani_classes/Users/Authentication/Fronend/OtpScreen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../Backend/Provider/AuthProvider.dart';
 
-import '../Backend/Utils/utils.dart';
-import 'OtpScreen.dart';
 
-class PhoneScreen extends StatefulWidget {
-  const PhoneScreen({Key? key}) : super(key: key);
+class UserPhoneScreen extends StatefulWidget {
+  const UserPhoneScreen({Key? key}) : super(key: key);
 
   @override
-  State<PhoneScreen> createState() => _PhoneScreenState();
+  State<UserPhoneScreen> createState() => _UserPhoneScreenState();
 }
 
-class _PhoneScreenState extends State<PhoneScreen> {
+class _UserPhoneScreenState extends State<UserPhoneScreen> {
 
   //Sliding Image
   List imageList = [
-    {"id": 1, "image_path": 'image/A1.png'},
-    {"id": 2, "image_path": 'image/A2.png'},
+    {"id": 1, "image_path": 'assets/A1.png'},
+    {"id": 2, "image_path": 'assets/A2.png'},
+   // {"id": 3, "image_path": 'image/A3.png'},
   ];
   final CarouselController carouselController = CarouselController();
   int currentIndex = 0;

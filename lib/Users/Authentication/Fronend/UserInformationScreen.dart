@@ -1,12 +1,12 @@
 import 'dart:io';
+
+
+import 'package:bhimani_classes/Users/Authentication/Backend/Utils/utils.dart';
+import 'package:bhimani_classes/Users/Frontend/Dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../Backend/Provider/AuthProvider.dart';
 import '../Backend/UserModel/UserModel.dart';
-
-import '../Backend/Utils/utils.dart';
-import 'HomeScreen.dart';
 
 class UserInformationScreen extends StatefulWidget {
   const UserInformationScreen({Key? key}) : super(key: key);
@@ -335,7 +335,7 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
                       (value) => Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const HomeScreen(),
+                            builder: (context) => const UserDashboard(),
                           ),
                           (route) => false),
                     ),

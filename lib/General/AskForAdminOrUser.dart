@@ -1,9 +1,11 @@
-import 'package:bhimani_classes/Admin/Authentication/Fronend/PhoneScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../Admin/Authentication/Backend/Provider/AuthProvider.dart';
+import '../Admin/Authentication/Fronend/PhoneScreen.dart';
+import '../Admin/Frontend/Dashboard.dart';
+import '../Users/Authentication/Fronend/PhoneScreen.dart';
+import '../Users/Frontend/Dashboard.dart';
 
-import '../../Frontend/Dashboard.dart';
-import '../Backend/Provider/AuthProvider.dart';
 
 class AskUser extends StatefulWidget {
   const AskUser({Key? key}) : super(key: key);
@@ -75,6 +77,24 @@ class _AskUserState extends State<AskUser> {
                   ],
                 ),
                 onTap: ()async {
+                  if (ap.isSignedIn == true) {
+                    await ap.getDataFromSP().whenComplete(
+                          () =>
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const UserDashboard(),
+                            ),
+                          ),
+                    );
+                  } else {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const UserPhoneScreen(),
+                      ),
+                    );
+                  }
                 }
             ),
           ],

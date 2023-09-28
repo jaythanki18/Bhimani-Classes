@@ -133,6 +133,60 @@ class AuthProvider extends ChangeNotifier {
         _isLoading = false;
         notifyListeners();
       });
+      // add module
+      FirebaseFirestore.instance
+          .collection('admin')
+          .doc(_uid)
+          .collection('Dashboard')
+          .add({
+        "type": "section",
+        "name": "Attendance",
+        "icon": "assets/attendance.png"
+      });
+      FirebaseFirestore.instance
+          .collection('admin')
+          .doc(_uid)
+          .collection('Dashboard')
+          .add({
+        "type": "section",
+        "name": "Fees",
+        "icon": "assets/fees.png"
+      });
+      FirebaseFirestore.instance
+          .collection('admin')
+          .doc(_uid)
+          .collection('Dashboard')
+          .add({
+        "type": "section",
+        "name": "Syllabus",
+        "icon": "assets/syllabus.png"
+      });FirebaseFirestore.instance
+          .collection('admin')
+          .doc(_uid)
+          .collection('Dashboard')
+          .add({
+        "type": "section",
+        "name": "Time Table",
+        "icon": "assets/timetable.png"
+      });
+      FirebaseFirestore.instance
+          .collection('admin')
+          .doc(_uid)
+          .collection('Dashboard')
+          .add({
+        "type": "section",
+        "name": "Result",
+        "icon": "assets/result.png"
+      });
+      FirebaseFirestore.instance
+          .collection('admin')
+          .doc(_uid)
+          .collection('Dashboard')
+          .add({
+        "type": "section",
+        "name": "Messages",
+        "icon": "assets/message.png"
+      });
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message.toString());
       _isLoading = false;

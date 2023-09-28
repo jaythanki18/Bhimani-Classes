@@ -1,10 +1,8 @@
-
+import 'package:bhimani_classes/General/AskForAdminOrUser.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../Backend/Provider/AuthProvider.dart';
-import 'AskForAdminOrUser.dart';
-
+import '../Admin/Authentication/Backend/Provider/AuthProvider.dart';
 
 
 class WelcomeScreen extends StatefulWidget {
@@ -41,7 +39,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                        shape: MaterialStatePropertyAll(
                            RoundedRectangleBorder(side: BorderSide(width: 1,color: Colors.grey),borderRadius: BorderRadius.circular(12))),
                          backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(45, 87, 152, 1.0))),
-                    onPressed: (){
+                    onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>AskUser()));
                     },
                     child:Text("Let's get started",style: TextStyle(
